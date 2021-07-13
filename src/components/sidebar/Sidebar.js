@@ -3,6 +3,12 @@ import React from "react";
 import "./Sidebar.css";
 
 const Sidebar = () => {
+  const recentItem = topic => (
+    <div className="sidebar_recentItem">
+      <span className="sidebar_hash">#</span>
+      <p>{topic}</p>
+    </div>
+  );
   return (
     <div className="sidebar">
       <div className="sidebar_top">
@@ -12,7 +18,7 @@ const Sidebar = () => {
         />
         <Avatar className="sidebar_avatar" />
         <h2>Luke Menton</h2>
-        <h3>lukementon15@gmail.com</h3>
+        <h4>lukementon15@gmail.com</h4>
       </div>
 
       <div className="sidebar_stats">
@@ -26,7 +32,14 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="sidebar_bottom"></div>
+      <div className="sidebar_bottom">
+        <p>Recent</p>
+        {recentItem("reactjs")}
+        {recentItem("programming")}
+        {recentItem("coding")}
+        {recentItem("softwareengineering")}
+        {recentItem("developer")}
+      </div>
     </div>
   );
 };
