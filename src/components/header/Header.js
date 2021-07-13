@@ -1,15 +1,24 @@
 import React from "react";
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
-
 import HomeIcon from "@material-ui/icons/Home";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
 import ChatIcon from "@material-ui/icons/Chat";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import HeaderOption from "../headerOption/HeaderOption";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../../features/userSlice";
+import { auth } from "../../firebase";
 
 const Header = () => {
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const logoutOfApp = () => {
+    dispatch(logout());
+    auth.signOut();
+  };
+
   return (
     <div className="header">
       <div className="header_left">
@@ -20,7 +29,7 @@ const Header = () => {
 
         <div className="header_search">
           <SearchIcon />
-          <input type="text" />
+          <input placeholder="Search" type="text" />
         </div>
       </div>
 
@@ -31,8 +40,9 @@ const Header = () => {
         <HeaderOption Icon={ChatIcon} title="Messaging" />
         <HeaderOption Icon={NotificationsIcon} title="Notifications" />
         <HeaderOption
-          avatar="https://scontent-dub4-1.xx.fbcdn.net/v/t1.6435-9/185627154_245813293969242_894561737991809697_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=HpQkXqAG3xYAX-HburB&_nc_ht=scontent-dub4-1.xx&oh=1de37d087fc602a6ef08b1e245f767e5&oe=60F2A0FE"
-          title="me"
+          avatar={true}
+          title={user ? user.displayName : "me"}
+          onClick={logoutOfApp}
         />
       </div>
     </div>
